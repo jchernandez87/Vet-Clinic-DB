@@ -47,3 +47,24 @@ SELECT MIN(weight_kg) FROM animals WHERE species = 'pokemon';
 
 -- Avg escape attempts for animals born between 1990 and 2000;
 SELECT AVG(escape_attempts) FROM animals WHERE date_of_birth > '1990-01-01' AND date_of_birth < '1999-12-31';
+
+-- Select Melodys pons's animals
+SELECT animals.name FROM animals JOIN owners ON animals.owner_id = owners.id WHERE owners.full_name = 'Melody Pond';
+
+-- Select all animals of pokemon species
+SELECT animals.name FROM animals JOIN species ON animals.species_id = species.id WHERE species.name = 'Pokemon';
+
+-- List all owners and their animals
+SELECT animals.name, owners.full_name FROM owners LEFT JOIN animals ON animals.owner_id = owners.id;
+
+-- list number of species
+SELECT COUNT(*) FROM animals JOIN species ON animals.species_id = species.id GROUP BY animals.species_id;
+
+-- Select Jennifer Orwell digimon animals
+SELECT animals.name FROM animals JOIN owners ON animals.owner_id = owners.id JOIN species ON animals.species_id = species.id WHERE owners.full_name = 'Jennifer Orwell' AND species.name = 'Digimon';
+
+-- Select Dean Winchester animals with 0 escape attempts
+SELECT animals.name FROM animals JOIN owners ON animals.owner_id = owners.id WHERE owners.full_name = 'Dean Winchester' AND animals.escape_attempts = 0;
+
+-- Who onws the most
+SELECT owners.full_name FROM owners JOIN animals ON owners.id = animals.owner_id GROUP BY owners.full_name ORDER BY COUNT(*) DESC LIMIT 1;
