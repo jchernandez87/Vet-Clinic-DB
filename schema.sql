@@ -11,7 +11,7 @@ CREATE TABLE animals (
 ALTER TABLE animals ADD COLUMN species VARCHAR(50);
 
 -- Create owners table
-CREATE TABLE owners(
+CREATE TABLE owners (
   id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
   full_name VARCHAR(50), 
   age INT
@@ -39,3 +39,29 @@ ALTER TABLE animals ADD CONSTRAINT fk_species_id FOREIGN KEY (species_id) REFERE
 -- Add owner_id column to animals table and make it a foreign key referencing owners table.
 ALTER TABLE animals ADD COLUMN owner_id INT;
 ALTER TABLE animals ADD CONSTRAINT fk_owner_id FOREIGN KEY (owner_id) REFERENCES owners(id);
+
+-- Create vets table
+CREATE TABLE vets (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
+  name VARCHAR(50), 
+  age INT, 
+  date_of_graduation DATE
+);
+
+-- Create specializations join table referencing vets and species
+CREATE TABLE specializations (
+  species_id INT, 
+  vet_id INT, 
+  FOREIGN KEY (species_id) REFERENCES species (id) ON DELETE RESTRICT ON UPDATE CASCADE, 
+  FOREIGN KEY (vet_id) REFERENCES vets (id) ON DELETE RESTRICT ON UPDATE CASCADE, 
+  PRIMARY KEY (species_id, vet_id)
+);
+
+-- Create visits join table referencing vets and animals
+CREATE TABLE visits (
+  date_of_visit DATE,
+  animal_id INT, 
+  vet_id INT, 
+  FOREIGN KEY (animal_id) REFERENCES animals (id) ON DELETE RESTRICT ON UPDATE CASCADE, 
+  FOREIGN KEY (vet_id) REFERENCES vets (id) ON DELETE RESTRICT ON UPDATE CASCADE, 
+);
