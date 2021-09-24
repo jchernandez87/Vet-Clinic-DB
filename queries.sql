@@ -76,7 +76,7 @@ SELECT animals.name FROM animals JOIN visits ON animals.id = animal_id JOIN vets
 SELECT COUNT(animals.name) FROM animals JOIN visits ON animals.id = animal_id JOIN vets ON visits.vet_id = vets.id WHERE vets.name = 'Stephanie Mendez';
 
 -- List vets and their specializations
-SELECT vets.name, species.name FROM vets LEFT JOIN specializations ON vets.id = vet_id LEFT JOIN species ON species.id = species_id;
+SELECT vets.name, species.name FROM vets LEFT JOIN specializations ON vets.id = specializations.vet_id LEFT JOIN species ON specializations.species.id = .species_id;
 
 -- Animals visited by Stephanie Mendez between to dates
 SELECT animals.name FROM animals JOIN visits ON animals.id = visits.animal_id JOIN vets ON vets.id = visits.vet_id WHERE vets.name = 'Stephanie Mendez' AND visits.date_of_visit BETWEEN 'Apr 1, 2020' AND 'Aug 30,2020';
