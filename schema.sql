@@ -59,9 +59,9 @@ CREATE TABLE specializations (
 
 -- Create visits join table referencing vets and animals
 CREATE TABLE visits (
+  date DATE,
   animal_id INT, 
   vet_id INT, 
   FOREIGN KEY (animal_id) REFERENCES animals (id) ON DELETE RESTRICT ON UPDATE CASCADE, 
   FOREIGN KEY (vet_id) REFERENCES vets (id) ON DELETE RESTRICT ON UPDATE CASCADE, 
-  PRIMARY KEY (animal_id, vet_id)
 );
